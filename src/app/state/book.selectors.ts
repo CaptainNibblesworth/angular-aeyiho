@@ -12,6 +12,12 @@ export const selectBooks = createSelector(
 export const selectCollectionState = createFeatureSelector<
   AppState,
   ReadonlyArray<string>
-  >("collection");
+>('collection');
 
-  
+export const selectBookCollection = createSelector(
+  selectBooks,
+  selectCollectionState,
+  (books: Array<Book>, collection: Array<string>) => {
+    return collection.map(id => books.find(book => book.id === id));
+  }
+);
